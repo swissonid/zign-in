@@ -60,7 +60,6 @@ dependencies {
     // Tooling
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.10")
 
-
     // Compose
     implementation("androidx.activity:activity-compose:1.7.1")
     implementation(platform("androidx.compose:compose-bom:2022.10.00"))
@@ -77,6 +76,7 @@ dependencies {
 
     // Testing
     testImplementation("junit:junit:4.13.2")
+    testImplementation("com.google.truth:truth:1.1.3")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
