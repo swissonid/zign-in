@@ -1,4 +1,4 @@
-package github.swissonid.zignin.feature.userregistry.domain
+package github.swissonid.zignin.feature.userregistry.domain.model
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toLocalDate
