@@ -1,4 +1,4 @@
-package github.swissonid.zignin.infrastructure.auth.domain
+package github.swissonid.zignin.feature.userregistry.domain
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test

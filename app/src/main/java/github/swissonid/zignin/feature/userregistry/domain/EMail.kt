@@ -1,4 +1,4 @@
-package github.swissonid.zignin.infrastructure.auth.domain
+package github.swissonid.zignin.feature.userregistry.domain
 
 /**
  * Email validation regex.

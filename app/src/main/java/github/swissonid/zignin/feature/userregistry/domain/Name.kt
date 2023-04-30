@@ -1,4 +1,4 @@
-package github.swissonid.zignin.infrastructure.auth.domain
+package github.swissonid.zignin.feature.userregistry.domain
 
 @JvmInline
 value class Name private constructor(val value: String) {
