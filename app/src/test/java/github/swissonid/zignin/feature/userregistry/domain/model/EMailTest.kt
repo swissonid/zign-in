@@ -72,7 +72,7 @@ class ValidEmailTest(private val email: String) {
     fun `EMail_fromString - should return a valid email`() {
         val result = EMail.fromString(email)
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrThrow().value).isEqualTo(email)
+        assertThat(result.getOrThrow().toString()).isEqualTo(email)
     }
 
     @Test
@@ -85,7 +85,7 @@ class ValidEmailTest(private val email: String) {
     @Test
     fun `EMail constructor`() {
         val emailObject = EMail(email)
-        assertThat(emailObject.value).isEqualTo(email)
+        assertThat(emailObject.toString()).isEqualTo(email)
     }
 }
 

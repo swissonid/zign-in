@@ -11,9 +11,13 @@ package github.swissonid.zignin.feature.userregistry.domain.model
 private val EMAIL_REGEX = Regex("^[\\w-.]+@([\\w-]+\\.)+\\w{2,4}\$")
 
 @JvmInline
-value class EMail(val value: String) {
+value class EMail(private val value: String) {
     init {
         validateEmail(value).onFailure { throw it }
+    }
+
+    override fun toString(): String {
+        return value
     }
 
     companion object {
