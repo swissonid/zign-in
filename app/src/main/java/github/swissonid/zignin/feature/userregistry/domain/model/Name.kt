@@ -1,7 +1,16 @@
 package github.swissonid.zignin.feature.userregistry.domain.model
 
 @JvmInline
-value class Name private constructor(val value: String) {
+value class Name(private val value: String) {
+    init {
+        checkIfStringIsAValidName(value)
+            .onFailure { throw it }
+    }
+
+    override fun toString(): String {
+        return value
+    }
+
     companion object {
         /**
          * Create a [Name] from a [String]. If the string is valid but still has blank spaces at the beginning or end,
@@ -10,7 +19,7 @@ value class Name private constructor(val value: String) {
          * @param value string to create the [Name] from.
          * @return [Result] with [Name] if the string is a valid name, otherwise [Result] with [NotAValidNameException].
          */
-        fun fromString(value: String): Result<Name> =
+        fun fromStringAndTrim(value: String): Result<Name> =
             checkIfStringIsAValidName(value).map { Name(it.trim()) }
     }
 }

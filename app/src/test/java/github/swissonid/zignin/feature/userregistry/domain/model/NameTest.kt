@@ -2,50 +2,71 @@ package github.swissonid.zignin.feature.userregistry.domain.model
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
+import org.junit.runners.Suite
 
-class NameTest {
 
-    @Test
-    fun `checkIfStringIsAValidName - should return NotAValidNameException when name is empty`() {
-        val result = checkIfStringIsAValidName("")
-        assertThat(result.isFailure).isTrue()
-        assertThat(result.exceptionOrNull()).isEqualTo(NotAValidNameException.EmptyName)
+@RunWith(Suite::class)
+@Suite.SuiteClasses(
+    InvalidNameTests::class,
+    ValidNameTest::class
+)
+class NameTest
+
+@RunWith(Parameterized::class)
+class InvalidNameTests(val value: String, val expected: Any) {
+
+    companion object {
+        @JvmStatic
+        @Parameterized.Parameters(name = "{0}")
+        fun data(): Collection<Array<Any>> = listOf(
+            arrayOf("", NotAValidNameException.EmptyName),
+            arrayOf(" ", NotAValidNameException.OnlyBlankSpace),
+        )
     }
 
     @Test
-    fun `checkIfStringIsAValidName - should return NotAValidNameException when name has only blank space`() {
-        val result = checkIfStringIsAValidName(" ")
+    fun `checkIfStringIsAValidName - should return NotAValidNameException`() {
+        val result = checkIfStringIsAValidName(value)
         assertThat(result.isFailure).isTrue()
-        assertThat(result.exceptionOrNull()).isEqualTo(NotAValidNameException.OnlyBlankSpace)
+        assertThat(result.exceptionOrNull()).isEqualTo(expected)
     }
+
+    @Test
+    fun `Name_fromString - should return NotAValidNameException`() {
+        val result = Name.fromStringAndTrim(value)
+        assertThat(result.isFailure).isTrue()
+        assertThat(result.exceptionOrNull()).isEqualTo(expected)
+    }
+
+    @Test(expected = NotAValidNameException::class)
+    fun `Name constructor`() {
+        Name(value)
+    }
+}
+
+class ValidNameTest {
+    private val name = "Joe Done"
 
     @Test
     fun `checkIfStringIsAValidName - should return the given value when name is valid`() {
-        val name = "Swissonid"
         val result = checkIfStringIsAValidName(name)
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrNull()).isEqualTo(name)
     }
 
     @Test
-    fun `Name_fromString - should return EmptyName when name is empty`() {
-        val result = Name.fromString("")
-        assertThat(result.isFailure).isTrue()
-        assertThat(result.exceptionOrNull()).isEqualTo(NotAValidNameException.EmptyName)
-    }
-
-    @Test
-    fun `Name_fromString - should return OnlyBlankSpace when name is empty`() {
-        val result = Name.fromString("    ")
-        assertThat(result.isFailure).isTrue()
-        assertThat(result.exceptionOrNull()).isEqualTo(NotAValidNameException.OnlyBlankSpace)
-    }
-
-    @Test
     fun `Name_fromString - should return a trimmed name when name is ' swissonid '`() {
-        val result = Name.fromString(" swissonid ")
+        val result = Name.fromStringAndTrim(" $name ")
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrThrow().value).isEqualTo("swissonid")
+        assertThat(result.getOrThrow().toString()).isEqualTo(name)
     }
 
+    @Test
+    fun `Name constructor`() {
+        val result = Name(name)
+        assertThat(result.toString()).isEqualTo(name)
+    }
 }
+
