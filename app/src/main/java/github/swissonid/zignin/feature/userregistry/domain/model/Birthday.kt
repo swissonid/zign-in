@@ -14,11 +14,15 @@ val earliestBirthday = "1900-01-01".toLocalDate()
  * @param value [LocalDate] value of the birthday.
  */
 @JvmInline
-value class Birthday(val value: LocalDate) {
+value class Birthday(private val value: LocalDate) {
     init {
         checkIfDateIsAValidBirthday(value).onFailure { throw it }
     }
 
+    override fun toString(): String {
+        return value.toString()
+    }
+    
     companion object {
         /**
          * Create a [Birthday] from a [String].

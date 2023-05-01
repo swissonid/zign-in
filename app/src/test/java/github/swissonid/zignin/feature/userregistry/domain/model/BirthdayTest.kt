@@ -89,7 +89,7 @@ class ValidStringBirthdayTest {
     fun `Birthday_fromString - should create a Birthday`() {
         val result = Birthday.fromString(birthday)
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrThrow().value).isEqualTo(birthday.toLocalDate())
+        assertThat(result.getOrThrow().toString()).isEqualTo(birthday)
     }
 
     @Test
@@ -102,13 +102,13 @@ class ValidStringBirthdayTest {
 
 
 class ValidLocalDateBirthdayTest {
-    private val birthday = "1985-12-31".toLocalDate()
+    private val birthday = "1985-12-31"
 
     @Test
     fun `Birthday_fromString - should create a Birthday`() {
-        val result = Birthday.fromLocalDate(birthday)
+        val result = Birthday.fromLocalDate(birthday.toLocalDate())
         assertThat(result.isSuccess).isTrue()
-        assertThat(result.getOrThrow().value).isEqualTo(birthday)
+        assertThat(result.getOrThrow().toString()).isEqualTo(birthday)
     }
 
     @Test
