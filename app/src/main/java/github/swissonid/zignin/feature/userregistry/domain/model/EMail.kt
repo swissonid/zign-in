@@ -12,9 +12,17 @@ private val EMAIL_REGEX = Regex("^[\\w-.]+@([\\w-]+\\.)+\\w{2,4}\$")
 
 @JvmInline
 value class EMail(val value: String) {
+    init {
+        validateEmail(value).onFailure { throw it }
+    }
+
     companion object {
         fun fromString(value: String): Result<EMail> {
-            return validateEmail(value).map { EMail(it) }
+            return try {
+                Result.success(EMail(value))
+            } catch (e: NotAValidEMailException) {
+                Result.failure(e)
+            }
         }
     }
 }

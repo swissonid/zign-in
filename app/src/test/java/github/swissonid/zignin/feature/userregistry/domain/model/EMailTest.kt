@@ -49,6 +49,11 @@ class InvalidEMailTest(
         assertThat(result.isFailure).isTrue()
         assertThat(result.exceptionOrNull()).isEqualTo(expectedException)
     }
+
+    @Test(expected = NotAValidEMailException::class)
+    fun `EMail constructor`() {
+        EMail(email)
+    }
 }
 
 @RunWith(value = Parameterized::class)
@@ -75,6 +80,12 @@ class ValidEmailTest(private val email: String) {
         val result = validateEmail(email)
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrThrow()).isEqualTo(email)
+    }
+
+    @Test
+    fun `EMail constructor`() {
+        val emailObject = EMail(email)
+        assertThat(emailObject.value).isEqualTo(email)
     }
 }
 
