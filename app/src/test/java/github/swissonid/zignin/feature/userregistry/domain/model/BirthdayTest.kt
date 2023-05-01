@@ -75,6 +75,11 @@ class InvalidLocalDateBirthdayTest(private val value: LocalDate, private val exp
         assertThat(result.isFailure).isTrue()
         assertThat(result.exceptionOrNull()).isEqualTo(expectedResult)
     }
+
+    @Test(expected = NotAValidBirthdayException::class)
+    fun `Birthday constructor`() {
+        Birthday(value)
+    }
 }
 
 class ValidStringBirthdayTest {
