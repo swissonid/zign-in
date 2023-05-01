@@ -14,7 +14,7 @@ import github.swissonid.zignin.feature.userregistry.presenation.screen.registrat
 fun Navigation(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "confirmation",
+    startDestination: String = "registration",
 ) {
     NavHost(
         modifier = modifier,
