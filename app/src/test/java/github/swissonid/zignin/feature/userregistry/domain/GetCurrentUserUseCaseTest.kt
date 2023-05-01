@@ -1,6 +1,7 @@
 package github.swissonid.zignin.feature.userregistry.domain
 
 import io.mockk.coVerify
+import io.mockk.confirmVerified
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -23,5 +24,6 @@ class GetCurrentUserUseCaseTest {
     fun `getCurrentUserUseCase - should call userRepository`() = runTest {
         getCurrentUserUseCase()
         coVerify { userRepositoryMock.currentUser() }
+        confirmVerified(userRepositoryMock)
     }
 }
