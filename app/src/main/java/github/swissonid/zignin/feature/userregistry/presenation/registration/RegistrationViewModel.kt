@@ -1,6 +1,9 @@
 package github.swissonid.zignin.feature.userregistry.presenation.registration
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import github.swissonid.zignin.feature.userregistry.domain.GetCurrentUserUseCase
+import github.swissonid.zignin.feature.userregistry.domain.RegisterNewUserUseCase
 import github.swissonid.zignin.feature.userregistry.domain.model.validateBirthday
 import github.swissonid.zignin.feature.userregistry.domain.model.validateEmail
 import github.swissonid.zignin.feature.userregistry.domain.model.validateName
@@ -8,9 +11,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-//TODO Unit test
-class RegistrationViewModel : ViewModel() {
+@HiltViewModel
+class RegistrationViewModel @Inject constructor(
+    private val getCurrentUserUseCase: GetCurrentUserUseCase,
+    private val registerNewUserUseCase: RegisterNewUserUseCase
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RegistrationUiState())
 
