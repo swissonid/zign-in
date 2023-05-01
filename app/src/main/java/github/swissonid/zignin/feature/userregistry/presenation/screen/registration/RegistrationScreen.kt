@@ -1,15 +1,15 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package github.swissonid.zignin.feature.userregistry.presenation.registration
+package github.swissonid.zignin.feature.userregistry.presenation.screen.registration
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -32,16 +32,18 @@ import github.swissonid.zignin.R
 
 @Composable
 fun SmartRegistrationScreen(
-    registrationViewModel: RegistrationViewModel
+    registrationViewModel: RegistrationViewModel,
+    onRegistrationDone: () -> Unit = {}
 ) {
     val registrationUiState by registrationViewModel.uiState.collectAsState()
+
     RegistrationScreen(
         uiState = registrationUiState,
         onNameChanges = { registrationViewModel.onNameChanges(it) },
         onEmailChanges = { registrationViewModel.onEmailChanges(it) },
         onBirthdayChanges = { registrationViewModel.onBirthdayChanges(it) },
-
-        )
+        onRegistration = { registrationViewModel.onRegistration(onRegistrationDone) },
+    )
 }
 
 @Composable
@@ -49,51 +51,65 @@ fun RegistrationScreen(
     onNameChanges: (String) -> Unit = {},
     onEmailChanges: (String) -> Unit = {},
     onBirthdayChanges: (String) -> Unit = {},
+    onRegistration: () -> Unit,
     uiState: RegistrationUiState = RegistrationUiState()
 ) {
     Scaffold {
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(it)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val spacerModifier = Modifier
+                .fillMaxWidth()
+                .height(16.dp)
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            NameField(
+                value = uiState.name.value,
+                enabled = uiState.isLoading.not(),
+                isError = uiState.name.isValid.not() && uiState.name.isDirty,
+                onNameChanges = onNameChanges
+            )
+            Spacer(modifier = spacerModifier)
+            EmailField(
+                value = uiState.email.value,
+                enabled = uiState.isLoading.not(),
+                isError = uiState.email.isValid.not() && uiState.email.isDirty,
+                onEmailChanges = onEmailChanges
+            )
+            Spacer(modifier = spacerModifier)
+            BirthdayField(
+                value = uiState.birthday.value,
+                enabled = uiState.isLoading.not(),
+                isError = uiState.birthday.isValid.not() && uiState.birthday.isDirty,
+                onBirthdayChanges = onBirthdayChanges
+            )
+            Spacer(modifier = spacerModifier)
+
+            OutlinedButton(
+                modifier = Modifier.fillMaxWidth(),
+                enabled = uiState.isFormValid && uiState.isLoading.not(),
+                onClick = onRegistration
             ) {
-                val spacerModifier = Modifier
-                    .fillMaxWidth()
-                    .height(16.dp)
 
-                NameField(
-                    value = uiState.name.value,
-                    isError = uiState.name.isValid.not() && uiState.name.isDirty,
-                    onNameChanges = onNameChanges
-                )
-                Spacer(modifier = spacerModifier)
-                EmailField(
-                    value = uiState.email.value,
-                    isError = uiState.email.isValid.not() && uiState.email.isDirty,
-                    onEmailChanges = onEmailChanges
-                )
-                Spacer(modifier = spacerModifier)
-                BirthdayField(
-                    value = uiState.birthday.value,
-                    isError = uiState.birthday.isValid.not() && uiState.birthday.isDirty,
-                    onBirthdayChanges = onBirthdayChanges
-                )
-                Spacer(modifier = spacerModifier)
-
-                OutlinedButton(onClick = { /*TODO*/ }) {
-                    Text("Registrieren")
+                Text(stringResource(id = R.string.registration_screen__action_button_text))
+                if (uiState.isLoading) {
+                    Spacer(modifier = Modifier.padding(8.dp))
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
                 }
 
             }
-        }
+            Spacer(modifier = spacerModifier)
 
+            if (uiState.hasError) {
+                Text(stringResource(id = R.string.error__general))
+            }
+        }
 
     }
 
@@ -104,11 +120,13 @@ private fun NameField(
     value: String?,
     onNameChanges: (String) -> Unit,
     isError: Boolean = false,
+    enabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next
 ) {
     var nameHasFocus by remember { mutableStateOf(false) }
     TextField(
         value = value ?: "",
+        enabled = enabled,
         onValueChange = onNameChanges,
         maxLines = 1,
         keyboardOptions = KeyboardOptions.Default.copy(
@@ -128,6 +146,7 @@ private fun EmailField(
     value: String?,
     onEmailChanges: (String) -> Unit,
     isError: Boolean = false,
+    enabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Next
 ) {
     var emailHasFocus by remember { mutableStateOf(false) }
@@ -136,6 +155,7 @@ private fun EmailField(
         value = value ?: "",
         onValueChange = onEmailChanges,
         maxLines = 1,
+        enabled = enabled,
         isError = showError,
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = KeyboardType.Email,
@@ -155,6 +175,7 @@ private fun BirthdayField(
     value: String?,
     onBirthdayChanges: (String) -> Unit,
     isError: Boolean = false,
+    enabled: Boolean = true,
     imeAction: ImeAction = ImeAction.Done
 ) {
     var birthdayHasFocus by remember { mutableStateOf(false) }
@@ -168,6 +189,7 @@ private fun BirthdayField(
         isError = isError && !birthdayHasFocus,
         supportingText = { if (birthdayHasFocus) Text("yyyy-mm-dd") },
         onValueChange = onBirthdayChanges,
+        enabled = enabled,
         label = { Text(stringResource(id = R.string.registration_screen__label_birthday)) },
         modifier = Modifier
             .fillMaxWidth()

@@ -1,4 +1,4 @@
-package github.swissonid.zignin.feature.userregistry.presenation.registration
+package github.swissonid.zignin.feature.userregistry.presenation.screen.registration
 
 enum class FormFieldId {
     NAME_ID,
@@ -8,6 +8,8 @@ enum class FormFieldId {
 
 
 data class RegistrationUiState(
+    val isLoading: Boolean = false,
+    val hasError: Boolean = false,
     val currentFocusFieldId: FormFieldId? = null,
     // Possible improvement to make here a collection instead of this three fields
     val name: FormField = FormField(FormFieldId.NAME_ID),

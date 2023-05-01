@@ -20,6 +20,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class RegisterNewUserUseCaseTest {
     lateinit var userRepositoryMock: UserRepository
+    lateinit var removeCurrentUserUseCaseMock: RemoveCurrentRegisteredUserUseCase
     lateinit var registerNewUser: RegisterNewUserUseCase
     private val newUser = NewUser(
         name = Name("John"),
@@ -31,14 +32,16 @@ class RegisterNewUserUseCaseTest {
     @Before
     fun setUp() {
         userRepositoryMock = mockk(relaxed = true)
+        removeCurrentUserUseCaseMock = mockk(relaxed = true)
         coEvery { userRepositoryMock.registerUser(any()) } returns Result.success(registeredUser)
-        registerNewUser = RegisterNewUserUseCase(userRepositoryMock)
+        registerNewUser = RegisterNewUserUseCase(userRepositoryMock, removeCurrentUserUseCaseMock)
     }
 
 
     @Test
     fun `registerNewUser - should call registerNewUser`() = runTest {
         registerNewUser(newUser)
+        coVerify { removeCurrentUserUseCaseMock() }
         coVerify { userRepositoryMock.registerUser(newUser) }
         confirmVerified(userRepositoryMock)
     }

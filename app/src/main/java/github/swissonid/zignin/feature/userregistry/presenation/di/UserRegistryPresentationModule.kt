@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import github.swissonid.zignin.feature.userregistry.domain.GetCurrentUserUseCase
 import github.swissonid.zignin.feature.userregistry.domain.RegisterNewUserUseCase
-import github.swissonid.zignin.feature.userregistry.domain.RemoveCurrentRegisteredUser
+import github.swissonid.zignin.feature.userregistry.domain.RemoveCurrentRegisteredUserUseCase
 import github.swissonid.zignin.feature.userregistry.domain.UserRepository
 
 @Module
@@ -22,17 +22,18 @@ object UserRegistryPresentationModule {
 
     @Provides
     fun provideRegisterNewUserUseCaseUseCase(
+        removeCurrentUser: RemoveCurrentRegisteredUserUseCase,
         userRepository: UserRepository
     ): RegisterNewUserUseCase {
-        return RegisterNewUserUseCase(userRepository)
+        return RegisterNewUserUseCase(userRepository, removeCurrentUser)
     }
 
     @Provides
     fun provideRemoveCurrentRegisteredUser(
         userRepository: UserRepository
-    ): RemoveCurrentRegisteredUser {
-        return RemoveCurrentRegisteredUser(userRepository)
+    ): RemoveCurrentRegisteredUserUseCase {
+        return RemoveCurrentRegisteredUserUseCase(userRepository)
     }
 
-    
+
 }

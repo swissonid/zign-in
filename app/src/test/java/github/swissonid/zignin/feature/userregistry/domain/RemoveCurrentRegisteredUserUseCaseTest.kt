@@ -9,20 +9,19 @@ import org.junit.Before
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class RemoveCurrentRegisteredUserTest {
+class RemoveCurrentRegisteredUserUseCaseTest {
     lateinit var userRepositoryMock: UserRepository
-    lateinit var removeCurrentRegisteredUser: RemoveCurrentRegisteredUser
+    lateinit var removeCurrentRegisteredUserUseCase: RemoveCurrentRegisteredUserUseCase
 
     @Before
     fun setUp() {
         userRepositoryMock = mockk(relaxed = true)
-        removeCurrentRegisteredUser = RemoveCurrentRegisteredUser(userRepositoryMock)
+        removeCurrentRegisteredUserUseCase = RemoveCurrentRegisteredUserUseCase(userRepositoryMock)
     }
-
-
+    
     @Test
     fun `removeCurrentRegisteredUser - should call userRepository`() = runTest {
-        removeCurrentRegisteredUser()
+        removeCurrentRegisteredUserUseCase()
         coVerify { userRepositoryMock.removeCurrentUser() }
         confirmVerified(userRepositoryMock)
     }

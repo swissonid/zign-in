@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Zignin</string>
+    <string name="app_name" translatable="false">Zignin</string>
     <string name="registration_screen__label_name">Name</string>
     <string name="registration_screen__label_email">E-Mail</string>
     <string name="registration_screen__label_birthday">Birthday</string>
+    <string name="registration_screen__action_button_text">Sing Up</string>
+    <string name="confirmation_screen__title">Confirmation</string>
+    <string name="confirmation_screen_thank_you">Thank you for your registration</string>
+    <string name="error__general">Something went wrong</string>
 </resources>
