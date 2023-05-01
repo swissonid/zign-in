@@ -28,7 +28,7 @@ class InvalidNameTests(val value: String, val expected: Any) {
 
     @Test
     fun `checkIfStringIsAValidName - should return NotAValidNameException`() {
-        val result = checkIfStringIsAValidName(value)
+        val result = validateName(value)
         assertThat(result.isFailure).isTrue()
         assertThat(result.exceptionOrNull()).isEqualTo(expected)
     }
@@ -51,7 +51,7 @@ class ValidNameTest {
 
     @Test
     fun `checkIfStringIsAValidName - should return the given value when name is valid`() {
-        val result = checkIfStringIsAValidName(name)
+        val result = validateName(name)
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrNull()).isEqualTo(name)
     }

@@ -44,7 +44,7 @@ class InvalidStringBirthdayTest(private val value: String, private val expectedR
 
     @Test
     fun `checkIfDateIsAValidBirthday - should throw a NotAValidBirthdayException`() {
-        val result = checkIfDateIsAValidBirthday(value)
+        val result = validateBirthday(value)
         assertThat(result.isFailure).isTrue()
         assertThat(result.exceptionOrNull()).isEqualTo(expectedResult)
     }
@@ -94,7 +94,7 @@ class ValidStringBirthdayTest {
 
     @Test
     fun `checkIfDateIsAValidBirthday - should return the same value as was entered`() {
-        val result = checkIfDateIsAValidBirthday(birthday)
+        val result = validateBirthday(birthday)
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrThrow()).isEqualTo(birthday)
     }
@@ -113,7 +113,7 @@ class ValidLocalDateBirthdayTest {
 
     @Test
     fun `checkIfDateIsAValidBirthday - should return the same value as was entered`() {
-        val result = checkIfDateIsAValidBirthday(birthday)
+        val result = validateBirthday(birthday)
         assertThat(result.isSuccess).isTrue()
         assertThat(result.getOrThrow()).isEqualTo(birthday)
     }

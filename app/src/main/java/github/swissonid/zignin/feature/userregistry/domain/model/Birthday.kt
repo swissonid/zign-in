@@ -22,7 +22,7 @@ value class Birthday(private val value: LocalDate) {
     override fun toString(): String {
         return value.toString()
     }
-    
+
     companion object {
         /**
          * Create a [Birthday] from a [String].
@@ -68,7 +68,7 @@ value class Birthday(private val value: LocalDate) {
  * @param isoString [String] to check.
  * @return [Result] with [String] if the string is a valid birthday, otherwise [Result] with [NotAValidBirthdayException].
  */
-fun checkIfDateIsAValidBirthday(isoString: String): Result<String> {
+fun validateBirthday(isoString: String): Result<String> {
     return try {
         val localDate = LocalDate.parse(isoString)
         checkIfDateIsAValidBirthday(localDate).map { isoString }
