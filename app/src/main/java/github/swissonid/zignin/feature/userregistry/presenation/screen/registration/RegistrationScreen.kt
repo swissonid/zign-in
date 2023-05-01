@@ -84,7 +84,7 @@ fun RegistrationScreen(
                 .height(16.dp)
             Column {
                 Text(
-                    text = "Registration", style = MaterialTheme.typography.titleLarge.copy(
+                    text = stringResource(id = R.string.registration_screen__title), style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold,
                         fontSize = 48.sp,
                         color = MaterialTheme.colorScheme.primary

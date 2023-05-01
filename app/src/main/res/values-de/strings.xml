@@ -1,9 +1,9 @@
 <resources>
     <string name="registration_screen__label_name">Name</string>
     <string name="registration_screen__label_email">E-Mail</string>
-    <string name="registration_screen__label_birthday">Geburstag</string>
+    <string name="registration_screen__label_birthday">Geburtsdatum</string>
     <string name="registration_screen__action_button_text">Registrieren</string>
+    <string name="registration_screen__title">Registrierung</string>
     <string name="error__general">Es ist etwas schief gegangen</string>
-    <string name="confirmation_screen__title">Bestätigung</string>
     <string name="confirmation_screen_thank_you">Danke für die Registrierung</string>
 </resources>
