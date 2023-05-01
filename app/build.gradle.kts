@@ -83,12 +83,12 @@ dependencies {
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    // Coroutines Testing
-    androidTestImplementation("app.cash.turbine:turbine:0.12.3")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
     testImplementation("com.google.truth:truth:1.1.3")
+    testImplementation("io.mockk:mockk:1.13.5")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("com.google.truth:truth:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
