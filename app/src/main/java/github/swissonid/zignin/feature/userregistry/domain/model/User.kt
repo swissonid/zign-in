@@ -21,3 +21,10 @@ data class NewUser(
     override val birthday: Birthday,
     override val email: EMail,
 ) : User
+
+fun NewUser.toRegisteredUser(id: UserId): RegisteredUser = RegisteredUser(
+    name = name,
+    birthday = birthday,
+    email = email,
+    id = id
+)

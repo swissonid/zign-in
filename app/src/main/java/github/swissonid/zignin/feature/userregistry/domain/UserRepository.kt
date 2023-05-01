@@ -8,3 +8,9 @@ interface UserRepository {
     suspend fun currentUser(): Result<RegisteredUser>
     suspend fun removeCurrentUser(): Result<Unit>
 }
+
+sealed class UserRegistryException : Exception() {
+    object AUserAlreadyExists : UserRegistryException()
+    object NoUserIsRegistered : UserRegistryException()
+    object UnknownErrorException : UserRegistryException()
+}
