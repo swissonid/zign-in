@@ -76,7 +76,11 @@ fun ConfirmationScreen(
                 )
             )
 
-            Spacer(modifier = Modifier.fillMaxWidth().height(96.dp))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(96.dp)
+            )
 
             if (uiState.user != null) {
 
@@ -90,7 +94,11 @@ fun ConfirmationScreen(
                     ) {
                         Heart()
                     }
-                    Spacer(modifier = Modifier.fillMaxWidth().height(64.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(64.dp)
+                    )
                     TextWithLabel(
                         label = stringResource(R.string.registration_screen__label_name),
                         text = "${uiState.user.name}"
