@@ -138,11 +138,11 @@ private fun Heart() {
 private fun TextWithLabel(label: String, text: String) {
     Text(
         label,
-        style = MaterialTheme.typography.labelSmall.copy(
+        style = MaterialTheme.typography.labelLarge.copy(
             color = MaterialTheme.colorScheme.primary
         )
     )
-    Text(text)
+    Text(text, style = MaterialTheme.typography.bodyLarge)
 }
 
 
