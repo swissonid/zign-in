@@ -1,4 +1,4 @@
-package github.swissonid.zignin.feature.userregistry.presenation.screen.confirmation
+package github.swissonid.zignin.feature.userregistry.presentation.screen.confirmation
 
 import github.swissonid.zignin.feature.userregistry.domain.model.RegisteredUser
 

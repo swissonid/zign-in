@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package github.swissonid.zignin.feature.userregistry.presenation.screen.confirmation
+package github.swissonid.zignin.feature.userregistry.presentation.screen.confirmation
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat

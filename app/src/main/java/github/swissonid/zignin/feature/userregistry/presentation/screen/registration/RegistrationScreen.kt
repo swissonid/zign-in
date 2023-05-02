@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package github.swissonid.zignin.feature.userregistry.presenation.screen.registration
+package github.swissonid.zignin.feature.userregistry.presentation.screen.registration
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

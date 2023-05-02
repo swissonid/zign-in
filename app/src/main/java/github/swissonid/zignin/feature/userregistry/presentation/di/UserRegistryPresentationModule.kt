@@ -1,4 +1,4 @@
-package github.swissonid.zignin.feature.userregistry.presenation.di
+package github.swissonid.zignin.feature.userregistry.presentation.di
 
 import dagger.Module
 import dagger.Provides

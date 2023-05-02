@@ -1,6 +1,5 @@
-package github.swissonid.zignin.feature.userregistry.presenation.screen.confirmation
+package github.swissonid.zignin.feature.userregistry.presentation.screen.confirmation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +22,6 @@ class ConfirmationViewModel @Inject constructor(
             val result = getCurrentUserUseCase()
             result.onSuccess { _uiState.update { state -> state.copy(user = it) } }
             result.onFailure {
-                Log.e("ConfirmationViewModel", "wtf", it)
                 _uiState.update { state ->
                     state.copy(error = R.string.error__general)
                 }
@@ -31,9 +29,7 @@ class ConfirmationViewModel @Inject constructor(
         }
     }
 
-
     private val _uiState = MutableStateFlow(ConfirmationUiState())
-
 
     val uiState: StateFlow<ConfirmationUiState> = _uiState.asStateFlow()
 }

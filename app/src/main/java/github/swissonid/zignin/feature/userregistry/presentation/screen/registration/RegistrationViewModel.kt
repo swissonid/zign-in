@@ -1,4 +1,4 @@
-package github.swissonid.zignin.feature.userregistry.presenation.screen.registration
+package github.swissonid.zignin.feature.userregistry.presentation.screen.registration
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
