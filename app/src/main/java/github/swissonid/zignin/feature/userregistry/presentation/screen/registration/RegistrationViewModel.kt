@@ -70,7 +70,7 @@ class RegistrationViewModel @Inject constructor(
         validateForm(updateUiState)
     }
 
-    fun onRegistration(onRegistrationDone: () -> Unit) {
+    fun onRegistration(onRegistrationDone: () -> Unit/* This would be better solved with flow or channel of events*/) {
 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
