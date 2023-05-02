@@ -10,13 +10,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import github.swissonid.zignin.navigation.Navigation
+import github.swissonid.zignin.navigation.Routes
 
 @Composable
 fun StartScreen(
     navigationViewModel: StartScreenViewModel = hiltViewModel(),
 ) {
     val navigationUiState by navigationViewModel.uiState.collectAsState()
-    val startDestination = navigationUiState.startScreen
+    //You can uncomment this line to start the app with the confirmation screen
+    // if a user is already registered
+    // val startDestination = navigationUiState.startScreen
+
+    // Comment this line to start the app with the confirmation screen
+    // if a user is already registered
+    val startDestination = Routes.registrationScreen
 
     if (startDestination == null) {
         FullScreenLoading()
